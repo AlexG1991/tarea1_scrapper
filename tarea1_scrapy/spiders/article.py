@@ -27,9 +27,9 @@ class ArticleSpider(scrapy.Spider):
         item["title"] = response.css("h1::text").extract()[0]
         #text =  response.css(".mw-parser-output > p").extract()[1]
 
+        #Sometimes the first two or three paragraphs are empty, so I made a for to get the first non empty paragraph
         for text in response.css(".mw-parser-output > p").extract():
             if('mw-empty-elt' in str(text)):
-                print("entro")
                 continue
             else:
                 item["paragraph"] = remove_tags(text)
